@@ -31,7 +31,6 @@ public class OreChangerGUI extends GuiContainer {
 	
 	}
 
-	//@Override
 	protected void drawGuiContainerForgroundLayout(int param1, int param2) {
 		fontRenderer.drawString("OreChangerimput", 8, 6, 4210752);
 		fontRenderer.drawString(StatCollector.translateToLocal("oremanager:/gui/OreChanger.png"), 8, ySize - 96 + 2, 4210752);

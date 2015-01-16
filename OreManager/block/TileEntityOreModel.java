@@ -3,6 +3,8 @@ package OreManager.block;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import OreManager.container.ChangeContainer;
+import OreManager.gui.OreChangerGUI;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +16,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 
 public class TileEntityOreModel extends TileEntity implements IInventory {
 	private static final ResourceLocation texture = new ResourceLocation("OreManager:textures/model/OreManager.png");
@@ -147,9 +150,9 @@ public class TileEntityOreModel extends TileEntity implements IInventory {
 		
 	}
 
-	
-	
-	
-	
-	
+		
 }
+	
+	
+	
+

@@ -7,6 +7,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotFurnace;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 
 public class ChangeContainer extends Container {
 
@@ -48,8 +49,6 @@ public class ChangeContainer extends Container {
 	
 			ItemStack itemstack = null;
 		Slot slotObject = (Slot)inventorySlots.get(par2);
-		Slot inSlot = (Slot) this.inventorySlots.get(0);
-		Slot outSlot = (Slot) this.inventorySlots.get(1);
 		if(slotObject != null && slotObject.getHasStack()) {
 			ItemStack stackInSlot = slotObject.getStack();
 			itemstack = stackInSlot.copy();
@@ -64,7 +63,7 @@ public class ChangeContainer extends Container {
 			else if(!this.mergeItemStack(stackInSlot, 0, 2, false)){
 				return null;
 			}
-			if (!this.mergeItemStack(stackInSlot, 31, 40, false)) {
+		/*	if (!this.mergeItemStack(stackInSlot, 31, 40, false)) {
 				return null;
 				}
 			 else if (par2 >= 31 && par2 < 40
@@ -73,8 +72,7 @@ public class ChangeContainer extends Container {
 				}
 			 else if (!this.mergeItemStack(stackInSlot, 4, 40, false)) {
 				return null;
-			}
-			
+			} */   //--- REMBER THESE FUKING LINES CAUSING YOU 3 DAYS SUFFERING!!!!
 			if(stackInSlot.stackSize == 0) {
 				slotObject.putStack((ItemStack)null);
 				

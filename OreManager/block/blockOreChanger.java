@@ -16,6 +16,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -134,26 +135,12 @@ public class blockOreChanger extends BlockContainer {
 		}
 	}
 	
-	/*@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitx, float hity, float hitz){
-		if (!world.isRemote){
-			FMLNetworkHandler.openGui(player, OreManager.instance, OreManager.guiIdOreManagerGUI, world, x, y, z);;
-		}
-		
-		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-		if(tileEntity == null || player.isSneaking()) {
-			return false;
-		}
-		
-		player.openGui(OreManager.instance, 0, world, x, y, z);
-		
-		return true;
-	}*/
+	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitx, float hity, float hitz){
 	if(!world.isRemote) {
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
-        if (tileEntity != null) player.openGui(OreManager.instance, 0, world, x, y, z);
-}
+        	if (tileEntity != null) player.openGui(OreManager.instance, 0, world, x, y, z);
+		}		
         return true;
 	
 
@@ -165,7 +152,7 @@ public class blockOreChanger extends BlockContainer {
 	public void registerIcons(IconRegister icon){
 		this.blockIcon = icon.registerIcon(OreManager.modid + ":" + "OreManager");
 	}
-
+	   
 	
-	
+		
 }
