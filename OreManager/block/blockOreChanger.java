@@ -3,6 +3,7 @@ package OreManager.block;
 import java.util.Random;
 
 import OreManager.common.OreManager;
+import cpw.mods.fml.common.network.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -133,19 +134,30 @@ public class blockOreChanger extends BlockContainer {
 		}
 	}
 	
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float what, float these, float are){
+	/*@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitx, float hity, float hitz){
+		if (!world.isRemote){
+			FMLNetworkHandler.openGui(player, OreManager.instance, OreManager.guiIdOreManagerGUI, world, x, y, z);;
+		}
+		
 		TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
 		if(tileEntity == null || player.isSneaking()) {
 			return false;
 		}
+		
 		player.openGui(OreManager.instance, 0, world, x, y, z);
 		
 		return true;
-	}
+	}*/
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float hitx, float hity, float hitz){
+	if(!world.isRemote) {
+        TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+        if (tileEntity != null) player.openGui(OreManager.instance, 0, world, x, y, z);
+}
+        return true;
 	
 
-	
+	}
 	
 	
 

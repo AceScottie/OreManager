@@ -31,6 +31,7 @@ public class OreManager {
 	
 	public static Block blockOreChanger;
 	public static int blockOreChangerID;
+	public static final int guiIdOreManagerGUI = 0;
 	
 	
 	
