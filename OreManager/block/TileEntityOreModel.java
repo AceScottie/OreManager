@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -18,23 +19,24 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class TileEntityOreModel extends TileEntity implements IInventory {
+public class TileEntityOreModel extends TileEntity implements ISidedInventory {
 	private static final ResourceLocation texture = new ResourceLocation("OreManager:textures/model/OreManager.png");
 	
 	
-	private ItemStack[] inv = new ItemStack[2];
+	
 
-	private static final int[] inv_bottom = new int[]{0};
-	private static final int[] inv_side = new int[]{1};
-	private static final int[] inv_back = new int[]{2};
-
+	private static final int[] slots_top = new int[] {0};
+	private static final int[] slots_bottom = new int[] {1};
+	private static final int[] slots_sides = new int[] {2};
+	
+	private ItemStack[] inv = new ItemStack[3];
 	
 	
 	@Override
 	public int getSizeInventory() {
 		return this.inv.length;
 	}
-	@Override
+
 	public ItemStack getStackInSlot(int slot) {
 		return inv[slot];
 		
@@ -47,24 +49,28 @@ public class TileEntityOreModel extends TileEntity implements IInventory {
 			stack.stackSize = getInventoryStackLimit();
 		}
 	}
-	
-	@Override
-	public ItemStack decrStackSize(int slot, int count) {
-		ItemStack itemstack = getStackInSlot(slot);
-		if(itemstack != null) {
-			if(itemstack.stackSize <= count) {
-				setInventorySlotContents(slot, null);
+		@Override
+		public ItemStack decrStackSize(int par1, int par2) {
+			if (this.inv[par1] != null) {
+        		ItemStack itemstack;
+
+        		if (this.inv[par1].stackSize <= par2) {
+            		itemstack = this.inv[par1];
+            		this.inv[par1] = null;
+           			return itemstack; 
+           			}
+        			else{        		
+        				itemstack = this.inv[par1].splitStack(par2);
+        				if (this.inv[par1].stackSize == 0){
+                			this.inv[par1] = null;
+        				}
+            		return itemstack;
+        		}
 			}
 			else {
-				itemstack = itemstack.splitStack(count);
-				setInventorySlotContents(slot, null);
-				if(itemstack.stackSize == 0) {
-					setInventorySlotContents(slot, null);
-				}
+				return null;
 			}
 		}
-		return itemstack;
-	}
 	
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slot) {
@@ -149,8 +155,21 @@ public class TileEntityOreModel extends TileEntity implements IInventory {
 	private void bindTexture(ResourceLocation texture2) {
 		
 	}
+	
+	//-- WIP
+   	public int[] getAccessibleSlotsFromSide(int par1) {
+    	return par1 == 0 ? slots_top : (par1 == 1 ? slots_bottom : slots_sides);
+	}
 
-		
+
+	public boolean canInsertItem(int par1, ItemStack par2ItemStack, int par3) {
+	      return this.isItemValidForSlot(par1, par2ItemStack);
+	}
+	public boolean canExtractItem(int par1, ItemStack par2ItemStack, int par3) {
+		return par1 != 0 || par1 != 1 || par2ItemStack.itemID == Item.bucketEmpty.itemID;
+	}
+
+		//--
 }
 	
 	
